@@ -31,5 +31,5 @@ systemctl start docker
 newgrp docker
 docker ps
 
-
-curl -s https://raw.githubusercontent.com/disev001/server/master/setup.sh | bash
+#aufrufbar über curl -s https://raw.githubusercontent.com/disev001/server/master/setup.sh | bash
+#oder download curl https://raw.githubusercontent.com/disev001/server/master/setup.sh >> filename.sh
