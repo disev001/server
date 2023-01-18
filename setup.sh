@@ -1,9 +1,6 @@
 #!/bin/bash
 #Check Sudo
-if [ "$(id -u)" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
+[ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
 echo "Root granted for $SUDO_USER. Setting up Docker for Fedora"
 #install updates & docker
 dnf update -y && dnf upgrade -y
@@ -33,3 +30,6 @@ yum install -y kubectl
 systemctl start docker
 newgrp docker
 docker ps
+
+
+curl -s https://raw.githubusercontent.com/disev001/server/master/setup.sh | bash
