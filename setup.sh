@@ -4,7 +4,7 @@
 echo "Root granted for $SUDO_USER. Setting up Docker for Fedora"
 #install updates & docker
 dnf update -y && dnf upgrade -y
-dnf install -y nano dnf-plugins-core
+dnf install -y nano dnf-plugins-core git
 dnf config-manager -y --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 dnf update -y
 dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
