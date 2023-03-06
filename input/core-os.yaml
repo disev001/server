@@ -1,0 +1,39 @@
+variant: fcos
+version: 1.0.0
+passwd:
+  users:
+    - name: disev
+      ssh_authorized_keys:
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC0FoTzAHMIxtN/djVr7FtBCZUKw64EpRNnwDz8igaEX8Nl2uoXcyn6U5GAPZH49iKpAFUA8FmRIYx8lsq+u4l66FfMGFp6zKA5O3flf74WXUDdpVhoUsSRUes5vaHo2mfq/0DLmDKR2VPl5yhTxl7IfT7wQ9Cw7rWGRdd2w2rXztlsIYNo/aFwjWx/15sDpmXsL+wuzC2B7gmskUV4X/tcAnSfhvMK48Zwg7U9xRmqQtD5SLifXuCQjUoKSyu3tNCXbNvlGNImxFN6zCfJt2EYRGH/eQkAQEb8rUBa/hsbCqPriRMBeglQhZ6UPbvTYTuLVwj1m+XoehVOXCWXhpaxS5IeWWMxUPbqgDvXUnWkJlc48xkQtWTQdoy9Fila3Hvd3KykIMuIOndGREkqLEwQrfgFrDRfK7vj3zuSh3YFuevhGmzWXIhRv9YW7K2PmKIzgdySgeWAj0Umrk04VJuuuk17uk27/tWHQyZRRjqSHVtCJYiqM4+P0PxtX+yXwj0= dsee9@dev-w11"
+      groups:
+        - docker
+systemd:
+  units:
+    - name: install-rpms.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Install packages
+        ConditionFirstBoot=yes
+        Wants=network-online.target
+        After=network-online.target
+        After=multi-user.target
+        [Service]
+        Type=oneshot
+        ExecStart=rpm-ostree install nano git docker-compose htop --reboot
+        [Install]
+        WantedBy=multi-user.target
+storage:
+  files:
+    - path: /etc/ssh/sshd_config.d/20-enable-passwords.conf
+      mode: 0644
+      contents:
+        inline: |
+          # Fedora CoreOS disables SSH password login by default.
+          # Enable it.
+          # This file must sort before 40-disable-passwords.conf.
+          PasswordAuthentication yes
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: disev.dev
