@@ -1,0 +1,5 @@
+#!#!/bin/bash
+[ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
+echo "Root granted for $SUDO_USER. Start Installation of CoreOS. Please Replace the current unsecure ssh-rsa key"
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC0FoTzAHMIxtN/djVr7FtBCZUKw64EpRNnwDz8igaEX8Nl2uoXcyn6U5GAPZH49iKpAFUA8FmRIYx8lsq+u4l66FfMGFp6zKA5O3flf74WXUDdpVhoUsSRUes5vaHo2mfq/0DLmDKR2VPl5yhTxl7IfT7wQ9Cw7rWGRdd2w2rXztlsIYNo/aFwjWx/15sDpmXsL+wuzC2B7gmskUV4X/tcAnSfhvMK48Zwg7U9xRmqQtD5SLifXuCQjUoKSyu3tNCXbNvlGNImxFN6zCfJt2EYRGH/eQkAQEb8rUBa/hsbCqPriRMBeglQhZ6UPbvTYTuLVwj1m+XoehVOXCWXhpaxS5IeWWMxUPbqgDvXUnWkJlc48xkQtWTQdoy9Fila3Hvd3KykIMuIOndGREkqLEwQrfgFrDRfK7vj3zuSh3YFuevhGmzWXIhRv9YW7K2PmKIzgdySgeWAj0Umrk04VJuuuk17uk27/tWHQyZRRjqSHVtCJYiqM4+P0PxtX+yXwj0= dsee9@dev-w11"
+coreos-installer install /dev/sda --ignition-url $0  --insecure-ignition
